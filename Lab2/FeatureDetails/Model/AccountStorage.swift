@@ -7,8 +7,8 @@
 
 
 protocol AccountStorage {
-    func getByID(id: Int) -> Account
+    func getByID(id: Int) -> Account?
     func add(account: Account) -> Account
-    func update(account: Account)
-    func delete(id: Int)
+    func update(account: Account) -> Bool
+    func delete(id: Int) -> Bool
 }

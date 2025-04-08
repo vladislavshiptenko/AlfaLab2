@@ -6,7 +6,7 @@
 //
 
 protocol UserStorage {
-    func getByID(id: Int) -> User
-    func getByLogin(login: String) -> User
-    func getByToken(token: String) -> User
+    func getByID(id: Int) -> User?
+    func getByLogin(login: String) -> User?
+    func getByToken(token: String) -> User?
 }

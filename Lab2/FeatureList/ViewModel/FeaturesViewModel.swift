@@ -5,26 +5,34 @@
 //  Created by Vladislav Shiptenko on 02.04.2025.
 //
 
+import Combine
+
 class FeaturesViewModel {
     let features: [Feature]
-    let authViewModel: AuthViewModel
-    init(features: [Feature], authViewModel: AuthViewModel) {
+    @Published var filteredFeatures: [Feature]?
+    @Published var opErr: ListError?
+    init(features: [Feature]) {
         self.features = features
-        self.authViewModel = authViewModel
     }
 
-    func getFeatures() -> [Feature] {
+    func getFeatures() {
         var featuresWithPermissions: [Feature] = []
         
-        let token = authViewModel.getToken()
-        if token == nil {
-            return []
+        let token = AuthContext.shared().authUser?.accessToken
+        if token == nil || token!.isEmpty {
+            opErr = .emptyToken
+            return
         }
-        let perms = authViewModel.getByToken(token: token!).permissions
+        let perms = getPermissionsByToken(token: token!)
+        
+        if perms == nil {
+            opErr = .invalidToken
+            return
+        }
         for feature in features {
             var ok = true
             for permission in feature.permissions {
-                if !perms.contains(permission.rawValue) {
+                if !perms!.contains(permission.rawValue) {
                     ok = false
                     break
                 }
@@ -35,6 +43,10 @@ class FeaturesViewModel {
             }
         }
         
-        return featuresWithPermissions
+        if featuresWithPermissions.count == 0 {
+            opErr = .emptyList
+        } else {
+            filteredFeatures = featuresWithPermissions
+        }
     }
 }
