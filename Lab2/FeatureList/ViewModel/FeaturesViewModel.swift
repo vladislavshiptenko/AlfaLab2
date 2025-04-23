@@ -18,7 +18,7 @@ class FeaturesViewModel {
     func getFeatures() {
         var featuresWithPermissions: [Feature] = []
         
-        let token = AuthContext.shared().authUser?.accessToken
+        let token = AuthContext.shared.authUser?.accessToken
         if token == nil || token!.isEmpty {
             opErr = .emptyToken
             return

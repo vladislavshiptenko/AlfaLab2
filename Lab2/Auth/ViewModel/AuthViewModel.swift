@@ -8,8 +8,8 @@
 import Combine
 
 class AuthViewModel: AuthViewModelProtocol {
-    let userStorage: UserStorage
-    let authUserStorage: AuthUserStorage
+    let userService: UserService
+    let authUserService: AuthUserService
     @Published var userData: UserCredentials = UserCredentials(login: "", password: "") {
         didSet {
             if !validatePassword() {
@@ -22,9 +22,9 @@ class AuthViewModel: AuthViewModelProtocol {
         }
     }
     @Published var opErr: AuthError?
-    init(userStorage: UserStorage, authUserStorage: AuthUserStorage) {
-        self.userStorage = userStorage
-        self.authUserStorage = authUserStorage
+    init(userService: UserService, authUserService: AuthUserService) {
+        self.userService = userService
+        self.authUserService = authUserService
     }
 
     func login() {
@@ -38,14 +38,13 @@ class AuthViewModel: AuthViewModelProtocol {
             return
         }
         
-        let user = userStorage.getBy(login: userData.login)
-        if user == nil {
+        guard let user = userService.getBy(login: userData.login) else {
             opErr = .invalidCredentials
             return
         }
-        
-        if user!.password == userData.password {
-            AuthContext.shared().authUser = authUserStorage.Add(user: user!)
+
+        if user.password == userData.password {
+            AuthContext.shared.authUser = authUserService.Add(user: user)
         } else {
             opErr = .invalidCredentials
         }
