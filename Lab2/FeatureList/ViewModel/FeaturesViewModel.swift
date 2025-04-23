@@ -25,21 +25,20 @@ class FeaturesViewModel: FeaturesViewModelProtocol {
     func getFeatures() {
         var featuresWithPermissions: [Feature] = []
         
-        let token = AuthContext.shared.authUser?.accessToken
-        if token == nil || token!.isEmpty {
+        guard let token = AuthContext.shared.authUser?.accessToken, !token.isEmpty else {
             opErr = .emptyToken
             return
         }
-        let perms = getPermissionsByToken(token: token!)
-        
-        if perms == nil {
+
+        guard let perms = getPermissionsByToken(token: token) else {
             opErr = .invalidToken
             return
         }
+
         for feature in features {
             var ok = true
             for permission in feature.permissions {
-                if !perms!.contains(permission.rawValue) {
+                if !perms.contains(permission.rawValue) {
                     ok = false
                     break
                 }
