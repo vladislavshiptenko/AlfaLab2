@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
 
-        let viewModel = AuthViewModel(userStorage: FakeUserStorage(), authUserStorage: FakeAuthUserStorage())
+        let viewModel = AuthViewModel(userService: FakeUserService(), authUserService: FakeAuthUserService())
         let loginVC = AuthView(viewModel: viewModel)
 
         window = UIWindow(frame: UIScreen.main.bounds)
