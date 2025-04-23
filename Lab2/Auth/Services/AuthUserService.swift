@@ -1,11 +1,11 @@
 //
-//  CredentialsStorage.swift
+//  AuthUserService.swift
 //  Lab2
 //
 //  Created by Vladislav Shiptenko on 02.04.2025.
 //
 
-protocol AuthUserStorage {
+protocol AuthUserService {
     func Get() -> AuthUser
     func Add(user: User) -> AuthUser
 }

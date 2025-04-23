@@ -35,7 +35,7 @@ class TransferViewModel {
         account!.balance -= amount!
         
         let ok = accountStorage.update(account: account!)
-        if amount! > account!.balance {
+        if amount! > account!.balance || !ok {
             opErr = .wrongOperation
         }
     }

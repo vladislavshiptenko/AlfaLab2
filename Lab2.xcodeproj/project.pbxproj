@@ -101,7 +101,6 @@
 			buildPhases = (
 				CF5517282D9D382700C107D4 /* Sources */,
 				CF5517292D9D382700C107D4 /* Frameworks */,
-				CF55172A2D9D382700C107D4 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -209,13 +208,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CF55172A2D9D382700C107D4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CF5517372D9D382900C107D4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -412,7 +404,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.itmolabs.Lab2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Lab2/Lab2-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -442,7 +433,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.itmolabs.Lab2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Lab2/Lab2-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

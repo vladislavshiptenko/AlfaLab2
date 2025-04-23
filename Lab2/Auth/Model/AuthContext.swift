@@ -7,14 +7,5 @@
 
 class AuthContext {
     var authUser: AuthUser?
-    private static var uniqueInstance: AuthContext?
-
-    private init() {}
-
-    static func shared() -> AuthContext {
-        if uniqueInstance == nil {
-            uniqueInstance = AuthContext()
-        }
-        return uniqueInstance!
-    }
+    static let shared = AuthContext()
 }

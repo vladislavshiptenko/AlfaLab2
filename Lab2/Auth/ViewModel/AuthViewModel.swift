@@ -7,34 +7,56 @@
 
 import Combine
 
-class AuthViewModel: ObservableObject {
-    let userStorage: UserStorage
-    let authUserStorage: AuthUserStorage
-    @Published var userData: User?
+class AuthViewModel: AuthViewModelProtocol {
+    let userService: UserService
+    let authUserService: AuthUserService
+    @Published var userData: UserCredentials = UserCredentials(login: "", password: "") {
+        didSet {
+            if !validatePassword() {
+                opErr = .wrongPasswordInput
+            } else if !validateLogin() {
+                opErr = .wrongLoginInput
+            } else {
+                opErr = nil
+            }
+        }
+    }
     @Published var opErr: AuthError?
-    init(userStorage: UserStorage, authUserStorage: AuthUserStorage) {
-        self.userStorage = userStorage
-        self.authUserStorage = authUserStorage
+    init(userService: UserService, authUserService: AuthUserService) {
+        self.userService = userService
+        self.authUserService = authUserService
     }
 
-    func auth() {
-        if userData == nil {
-            opErr = .wrongInput
+    func login() {
+        if !validatePassword() {
+            opErr = .wrongPasswordInput
             return
         }
         
-        let user = userStorage.getByLogin(login: userData!.login)
-        if user == nil {
+        if !validateLogin() {
+            opErr = .wrongLoginInput
+            return
+        }
+        
+        guard let user = userService.getBy(login: userData.login) else {
             opErr = .invalidCredentials
             return
         }
-        
-        if user!.password == userData!.password {
-            AuthContext.shared().authUser = authUserStorage.Add(user: user!)
+
+        if user.password == userData.password {
+            AuthContext.shared.authUser = authUserService.Add(user: user)
         } else {
             opErr = .invalidCredentials
         }
         
         return
+    }
+    
+    private func validateLogin() -> Bool {
+        return !userData.login.isEmpty
+    }
+
+    private func validatePassword() -> Bool {
+        return userData.password.count >= 6 && userData.password.contains("!")
     }
 }
