@@ -1,6 +1,6 @@
 //
 //  BankAccountResponse.swift
-//  test2
+//  Lab2
 //
 //  Created by Vladislav Shiptenko on 22.04.2025.
 //
