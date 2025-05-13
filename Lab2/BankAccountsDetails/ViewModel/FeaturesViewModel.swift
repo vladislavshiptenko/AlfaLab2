@@ -2,26 +2,21 @@
 //  FeaturesViewModel.swift
 //  Lab2
 //
-//  Created by Vladislav Shiptenko on 02.04.2025.
+//  Created by Vladislav Shiptenko on 11.05.2025.
 //
 
-import Combine
-import Foundation
+import UIKit
 
-class FeaturesViewModel: FeaturesViewModelProtocol {
+final class FeaturesViewModel: FeaturesViewModelProtocol {
     private var features: [Feature]
-    private let bankService: BankServiceProtocol
+    
     @Published var filteredFeatures: [Feature]?
     @Published var opErr: ListError?
     
-    var onUpdate: (([BankAccountViewModel]) -> Void)?
-    var onLoadingStateChange: ((Bool) -> Void)?
-    var onError: ((String) -> Void)?
-    init(features: [Feature], bankService: BankServiceProtocol) {
+    init(features: [Feature]) {
         self.features = features
-        self.bankService = bankService
     }
-
+    
     func getFeatures() {
         var featuresWithPermissions: [Feature] = []
         
@@ -53,25 +48,6 @@ class FeaturesViewModel: FeaturesViewModelProtocol {
             opErr = .emptyList
         } else {
             filteredFeatures = featuresWithPermissions
-        }
-    }
-    
-    func fetchBankAccounts() {
-        onLoadingStateChange?(true)
-        
-        bankService.loadBankAccounts { [weak self] result in
-            DispatchQueue.main.async {
-                self?.onLoadingStateChange?(false)
-                
-                switch result {
-                case .success(let bankAccountsResponse):
-                    let viewModels = bankAccountsResponse.map { BankAccountViewModel(account: $0) }
-                    self?.onUpdate?(viewModels)
-                    
-                case .failure(let error):
-                    self?.onError?(error.localizedDescription)
-                }
-            }
         }
     }
 }

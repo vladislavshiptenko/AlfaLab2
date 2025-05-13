@@ -8,6 +8,8 @@
 import UIKit
 
 final class AuthView: UIViewController, AuthViewProtocol {
+    weak var router: RouterProtocol?
+    
     private lazy var loginTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Введите login"
@@ -219,6 +221,7 @@ final class AuthView: UIViewController, AuthViewProtocol {
         clearValidationErrors()
         
         print("Авторизация прошла успешно! Переход на экран со списком фичей...")
+        router?.showListScreen()
     }
 
     func showLoginError(_ errorMessage: String) {
