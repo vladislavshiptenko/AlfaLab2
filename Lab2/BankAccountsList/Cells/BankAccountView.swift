@@ -8,8 +8,8 @@
 import UIKit
 
 class BankAccountView: UIView, CellViewProtocol {
-    private let titleLabel = UILabel()
-    private let subtitleLabel = UILabel()
+    private let titleLabel = DS.label(with: DSLabelViewModel.bodyBase(""))
+    private let subtitleLabel = DS.label(with: DSLabelViewModel.bodySmall(""))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,17 +21,13 @@ class BankAccountView: UIView, CellViewProtocol {
     }
     
     private func setupUI() {
-        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        subtitleLabel.textColor = .darkGray
+        subtitleLabel.textColor = DSColorTokens.neutralSecondary
         
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 4
+        let stackView = DS.stackView(with: DSStackViewModel.vertical(spacing: DSSpacingTokens.space100))
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(subtitleLabel)
         
         addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor)

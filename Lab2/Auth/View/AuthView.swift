@@ -11,45 +11,29 @@ final class AuthView: UIViewController, AuthViewProtocol {
     weak var router: RouterProtocol?
     
     private lazy var loginTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Введите login"
-        textField.autocapitalizationType = .none
-        textField.borderStyle = .roundedRect
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        let textField = DS.textField(with: DSTextFieldViewModel.email(placeholder: "Введите логин"))
         textField.addTarget(self, action: #selector(didChangeText), for: .editingChanged)
         
         return textField
     }()
 
     private lazy var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Введите пароль"
-        textField.borderStyle = .roundedRect
-        textField.isSecureTextEntry = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        let textField = DS.textField(with: DSTextFieldViewModel.password(placeholder: "Введите пароль"))
         textField.addTarget(self, action: #selector(didChangeText), for: .editingChanged)
+        
         return textField
     }()
 
     private lazy var errorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .red
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.isHidden = true
+        let label = DS.label(with: DSLabelViewModel.error(""))
+        
         return label
     }()
 
     private lazy var loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Войти", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = DS.button(with: DSButtonViewModel.primaryMedium("Войти"))
         button.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        
         return button
     }()
     
@@ -141,16 +125,12 @@ final class AuthView: UIViewController, AuthViewProtocol {
             contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.frameLayoutGuide.heightAnchor)
         ])
         
-        let stackView = UIStackView(arrangedSubviews: [
-            loginTextField,
-            passwordTextField,
-            errorLabel,
-            loginButton
-        ])
-        stackView.axis = .vertical
-        stackView.spacing = 12
-        stackView.alignment = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let stackView = DS.stackView(with: DSStackViewModel.vertical())
+        
+        stackView.addArrangedSubview(loginTextField)
+        stackView.addArrangedSubview(passwordTextField)
+        stackView.addArrangedSubview(errorLabel)
+        stackView.addArrangedSubview(loginButton)
         
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
