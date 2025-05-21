@@ -8,11 +8,11 @@
 import UIKit
 
 public struct DSStackViewModel {
-    let axis: NSLayoutConstraint.Axis
-    let spacing: CGFloat
-    let alignment: UIStackView.Alignment
-    let distribution: UIStackView.Distribution
-    let padding: UIEdgeInsets
+    var axis: NSLayoutConstraint.Axis
+    var spacing: CGFloat
+    var alignment: UIStackView.Alignment
+    var distribution: UIStackView.Distribution
+    var padding: UIEdgeInsets
     
     public init(
         axis: NSLayoutConstraint.Axis,
@@ -50,5 +50,15 @@ public struct DSStackViewModel {
             spacing: spacing,
             padding: padding
         )
+    }
+
+    static func stackView(fromToken token: String) -> DSStackViewModel {
+        switch token {
+        case "vertical": return vertical()
+        case "horizontal": return horizontal()
+        case "verticalCentered": return verticalCentered()
+        case "horizontalCentered": return horizontalCentered()
+        default: return vertical()
+        }
     }
 }

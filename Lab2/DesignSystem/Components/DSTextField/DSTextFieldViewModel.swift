@@ -8,17 +8,17 @@
 import UIKit
 
 public struct DSTextFieldViewModel {
-    let placeholder: String
-    let textColor: UIColor
-    let font: UIFont
-    let backgroundColor: UIColor
-    let cornerRadius: CGFloat
-    let borderWidth: CGFloat
-    let borderColor: UIColor
-    let isSecure: Bool
-    let autocapitalizationType: UITextAutocapitalizationType
-    let autocorrectionType: UITextAutocorrectionType
-    let leftIcon: UIImage?
+    var placeholder: String
+    var textColor: UIColor
+    var font: UIFont
+    var backgroundColor: UIColor
+    var cornerRadius: CGFloat
+    var borderWidth: CGFloat
+    var borderColor: UIColor
+    var isSecure: Bool
+    var autocapitalizationType: UITextAutocapitalizationType
+    var autocorrectionType: UITextAutocorrectionType
+    var leftIcon: UIImage?
     
     public init(
         placeholder: String,
@@ -72,5 +72,15 @@ public struct DSTextFieldViewModel {
             autocorrectionType: .no,
             leftIcon: UIImage(systemName: "envelope")
         )
+    }
+    
+    static func textField(fromToken token: String) -> DSTextFieldViewModel {
+        switch token {
+        case "standard": return standard(placeholder: "")
+        case "search": return search(placeholder: "")
+        case "password": return password(placeholder: "")
+        case "email": return email(placeholder: "")
+        default: return standard(placeholder: "")
+        }
     }
 }

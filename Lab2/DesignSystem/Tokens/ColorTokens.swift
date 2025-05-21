@@ -22,6 +22,25 @@ public enum DSColorTokens {
     public static let successSecondary = UIColorFromRGB(0xCFF7D3)
     public static let warningSecondary = UIColorFromRGB(0xFFF1C2)
     public static let errorSecondary = UIColorFromRGB(0xFDD3D0)
+    
+    static func color(fromToken token: String) -> UIColor {
+        switch token {
+        case "baseDefault": return baseDefault
+        case "disabledDefault": return disabledDefault
+        case "brandDefault": return brandDefault
+        case "neutralDefault": return neutralDefault
+        case "successDefault": return successDefault
+        case "warningDefault": return warningDefault
+        case "errorDefault": return errorDefault
+        case "baseSecondary": return baseSecondary
+        case "brandSecondary": return brandSecondary
+        case "neutralSecondary": return neutralSecondary
+        case "successSecondary": return successSecondary
+        case "warningSecondary": return warningSecondary
+        case "errorSecondary": return errorSecondary
+        default: return baseDefault
+        }
+    }
 }
 
 func UIColorFromRGB(_ rgbValue: Int) -> UIColor {
