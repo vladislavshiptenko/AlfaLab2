@@ -9,5 +9,4 @@ protocol BDUIMapperDelegate: AnyObject {
     func didRequestNavigation(to destination: String, with context: [String: Any]?)
     func didRequestReload(with context: [String: Any]?)
     func didRequestDismiss(with context: [String: Any]?)
-    func didExecuteCustomAction(identifier: String, with context: [String: Any]?)
 }
