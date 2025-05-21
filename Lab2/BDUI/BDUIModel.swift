@@ -86,6 +86,7 @@ struct AnyCodable: Decodable {
 }
 
 enum ActionType: String, Decodable {
+    case print
     case navigate
     case reload
     case dismiss

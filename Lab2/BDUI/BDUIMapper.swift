@@ -8,7 +8,7 @@
 import UIKit
 
 class BDUIMapper: BDUIMapperProtocol {
-    private weak var delegate: BDUIMapperDelegate?
+    weak var delegate: BDUIMapperDelegate?
     
     init(delegate: BDUIMapperDelegate? = nil) {
         self.delegate = delegate
@@ -213,6 +213,11 @@ class BDUIMapper: BDUIMapperProtocol {
     
     func handleAction(_ action: ActionModel) {
         switch action.type {
+        case .print:
+            if let message = action.context?["message"] as? String {
+                print("BDUI Action: \(message)")
+            }
+            
         case .navigate:
             if let destination = action.context?["destination"] as? String {
                 delegate?.didRequestNavigation(to: destination, with: action.context)
