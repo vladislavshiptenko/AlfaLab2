@@ -18,5 +18,21 @@ public enum DSTypographyTokens {
     public static let bodySmall = UIFont.systemFont(ofSize: 14, weight: .regular)
     public static let bodySmallStrong = UIFont.systemFont(ofSize: 14, weight: .semibold)
     public static let input = UIFont.systemFont(ofSize: 16, weight: .regular)
+    
+    static func font(fromToken token: String) -> UIFont {
+        switch token {
+        case "titleHero": return titleHero
+        case "titlePage": return titlePage
+        case "subtitle": return subtitle
+        case "heading": return heading
+        case "subheading": return subheading
+        case "bodyBase": return bodyBase
+        case "bodyStrong": return bodyStrong
+        case "bodySmall": return bodySmall
+        case "bodySmallStrong": return bodySmallStrong
+        case "input": return input
+        default: return bodyBase
+        }
+    }
 }
 

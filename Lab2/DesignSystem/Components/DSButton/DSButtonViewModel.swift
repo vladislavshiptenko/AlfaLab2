@@ -8,15 +8,15 @@
 import UIKit
 
 public struct DSButtonViewModel {
-    let title: String
-    let titleColor: UIColor
-    let backgroundColor: UIColor
-    let cornerRadius: CGFloat
-    let font: UIFont
-    let borderWidth: CGFloat
-    let contentInsets: CGFloat
-    let borderColor: UIColor?
-    let buttonSize: UIButton.Configuration.Size
+    var title: String
+    var titleColor: UIColor
+    var backgroundColor: UIColor
+    var cornerRadius: CGFloat
+    var font: UIFont
+    var borderWidth: CGFloat
+    var contentInsets: CGFloat
+    var borderColor: UIColor?
+    var buttonSize: UIButton.Configuration.Size
     
     public init(
         title: String,
@@ -68,5 +68,15 @@ public struct DSButtonViewModel {
             borderWidth: 1,
             borderColor: DSColorTokens.neutralDefault,
         )
+    }
+    
+    static func button(fromToken token: String) -> DSButtonViewModel {
+        switch token {
+        case "primaryMedium": return primaryMedium("")
+        case "primarySmall": return primarySmall("")
+        case "neutralMedium": return neutralMedium("")
+        case "neutralSmall": return neutralSmall("")
+        default: return primaryMedium("")
+        }
     }
 }

@@ -8,11 +8,11 @@
 import UIKit
 
 public struct DSLabelViewModel {
-    let text: String
-    let textColor: UIColor
-    let font: UIFont
-    let alignment: NSTextAlignment
-    let numberOfLines: Int
+    var text: String
+    var textColor: UIColor
+    var font: UIFont
+    var alignment: NSTextAlignment
+    var numberOfLines: Int
     
     public init(
         text: String,
@@ -58,5 +58,19 @@ public struct DSLabelViewModel {
     
     public static func error(_ text: String) -> DSLabelViewModel {
         DSLabelViewModel(text: text, textColor: DSColorTokens.errorDefault, font: DSTypographyTokens.bodyBase)
+    }
+    
+    static func label(fromToken token: String) -> DSLabelViewModel {
+        switch token {
+        case "titleHero": return titleHero("")
+        case "titlePage": return titlePage("")
+        case "subtitle": return subtitle("")
+        case "heading": return heading("")
+        case "subheading": return subheading("")
+        case "bodyBase": return bodyBase("")
+        case "bodySmall": return bodySmall("")
+        case "error": return error("")
+        default: return bodyBase("")
+        }
     }
 }
